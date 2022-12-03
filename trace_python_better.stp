@@ -1,0 +1,11 @@
+probe python3.function.entry
+{
+  printf("%s => %s in %s:%d\n",
+         thread_indent(1), funcname, filename, lineno);
+}
+
+probe python3.function.return
+{
+  printf("%s <= %s in %s:%d\n",
+         thread_indent(-1), funcname, filename, lineno);
+}

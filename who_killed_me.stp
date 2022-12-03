@@ -1,0 +1,20 @@
+#! /usr/bin/env stap
+
+/*
+ * signal2.st: Track sender of SIGKILL to a given process.
+ *
+ * Run as user 'root' using the following command line:
+ *
+ *     stap -o signal2.out signal2.st
+ *
+ *
+ * dalla
+ */
+
+probe syscall.kill
+{
+    //if (sig == 9 || sig == 3 || sig == 15 || sig==2) {
+        printf("SIG %d to PID %d [%s %s]\n",
+               sig, pid(), execname(), cmdline_args(1, -1, " "));
+    //}
+}
